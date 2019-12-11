@@ -30,8 +30,8 @@ for i in permutations:
 
     ### Makes directory ~/output/index of number, and then copies in a parameter file into there
     original = open('original_parameters','r')
-
-    os.mkdir('output/' + str(permutations.index(i)))
+    os.chdir('output')
+    os.mkdir(str(permutations.index(i)))
     #shutil.copy('original_parameters', 'output/' + str(permutations.index(i)))
 
     ### changes directorty into the index number directory and opens the parameter file to edit
