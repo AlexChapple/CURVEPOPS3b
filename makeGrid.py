@@ -27,7 +27,7 @@ for i in range:
 for i in permutations:
 
     ### Makes directory ~/output/index of number, and then copies in a parameter file into there
-    subprocess.run('mkdir ~/output' + str(permutations.index(i)))
+    subprocess.run('mkdir ~/output/' + str(permutations.index(i)))
     subprocess.run('cp original_parameters ~/output/' + str(permutations.index(i)))
 
     ### changes directorty into the index number directory and opens the parameter file to edit
