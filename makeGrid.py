@@ -3,6 +3,8 @@ import os
 import fileinput
 import shutil
 
+owd = os.getcwd
+
 ### Set values ###
 
 Energy_guess = 10**52
