@@ -36,7 +36,7 @@ for i in permutations:
 
     ### changes directorty into the index number directory and opens the parameter file to edit
     os.chdir('output/' + str(permutations.index(i)))
-    parameters_file = open('parameters', 'w')
+    parameters_file = open('parameters', 'r+')
 
     ### Edits line for that grid parameter
     line_num = 0
