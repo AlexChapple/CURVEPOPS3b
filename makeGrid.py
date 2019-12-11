@@ -1,7 +1,7 @@
 import numpy as np 
 import os
-import subprocess
 import fileinput
+import shutil
 
 ### Set values ###
 
@@ -27,11 +27,12 @@ for i in range:
 for i in permutations:
 
     ### Makes directory ~/output/index of number, and then copies in a parameter file into there
-    subprocess.run('mkdir -p output/' + str(permutations.index(i)))
-    subprocess.run('cp original_parameters ~/output/' + str(permutations.index(i)))
+
+    os.mkdir('output/' + str(permutations.index(i)))
+    shutil.copy('original_parameters', 'output/' + str(permutations.index(i)))
 
     ### changes directorty into the index number directory and opens the parameter file to edit
-    os.chdir('~/output/' + str(permutations.index(i)))
+    os.chdir('output/' + str(permutations.index(i)))
     parameters_file = open('parameters', 'w')
 
     ### Edits line for that grid parameter
@@ -49,7 +50,7 @@ for i in permutations:
             parameters_file.write(line)
     
     parameters_file.close()
-    subprocess.run('cd ../..')
+    os.chdir(owd)
 
     
 
