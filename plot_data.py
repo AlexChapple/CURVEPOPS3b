@@ -35,7 +35,7 @@ for i in range(0,244):
         best_chi_squared = chi_squared
         best_day = days
         best_lumonisty = log_luminosity
-
+print(best_chi_squared)
     
 plt.plot(best_day, best_lumonisty, label='best guess')
 plt.plot(observed_days, observed_lum, label='observed')
