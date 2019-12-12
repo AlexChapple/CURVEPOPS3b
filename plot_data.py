@@ -1,3 +1,5 @@
+### This file fits the mahuika data to the 
+
 import numpy as np 
 import matplotlib.pyplot as plt 
 
@@ -41,6 +43,7 @@ for i in range(0,244):
         dchi = (log_luminosity[i] - observed_lum2[i])** 2 / observed_lum2[i]
         chi_squared += dchi
 
+    ### Compares to best chi-squared value
     if chi_squared < best_chi_squared:
         best_chi_squared = chi_squared
         best_day = days
@@ -48,6 +51,8 @@ for i in range(0,244):
 
 print(best_chi_squared)
     
+
+### Plotting
 plt.plot(best_day, best_lumonisty, label='best guess')
 plt.plot(best_day, observed_lum2, label='observed')
 plt.legend()
