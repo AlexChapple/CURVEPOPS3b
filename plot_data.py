@@ -31,6 +31,8 @@ for i in range(0,244):
 
             chi_squared += x
 
+    print(chi_squared)
+
     if chi_squared < best_chi_squared:
         best_chi_squared = chi_squared
         best_day = days
