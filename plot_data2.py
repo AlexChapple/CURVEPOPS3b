@@ -22,7 +22,7 @@ for i in range(0,244):
     data = data[data[:, 0] < (observed_days[-1] * 86400)]
     data = data[data[:, 0] > (observed_days[0] * 86400)]
 
-    seconds = data[:,0]
+    seconds = data[:, 0]
     luminosity = data[:, 1]
 
     ### Convert data
@@ -31,25 +31,25 @@ for i in range(0,244):
 
     ### interpolate data
     # observed_lum2 = np.interp(days, observed_days, observed_lum)
-    observed_lum2 = np.interp(days, observed_days, observed_lum)
+    log_luminosity2 = np.interp(observed_days, days, log_luminosity)
 
     ### Chi-squared analysis
     chi_squared = 0
 
-    for i in range(len(days)): 
+    for i in range(len(observed_days)): # days
 
-        dchi = (log_luminosity[i] - observed_lum2[i])** 2 / observed_lum2[i]
+        dchi = (log_luminosity2[i] - observed_lum[i])** 2 / observed_lum[i]
         chi_squared += dchi
 
     if chi_squared < best_chi_squared:
         best_chi_squared = chi_squared
-        best_day = days
-        best_lumonisty = log_luminosity
+        best_day = observed_days
+        best_lumonisty = log_luminosity2
 
 print(best_chi_squared)
     
-plt.plot(best_day, best_lumonisty, label='best guess')
-plt.plot(best_day, observed_lum2, label='observed')
+plt.plot(observed_days, best_lumonisty, label='best guess')
+plt.plot(observed_days, observed_lum, label='observed')
 plt.legend()
 
 plt.show()
