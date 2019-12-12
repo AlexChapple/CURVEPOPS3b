@@ -37,6 +37,7 @@ for i in range(0,244):
         best_lumonisty = log_luminosity
 
     
-plt.plot(best_day, best_lumonisty)
+plt.plot(best_day, best_lumonisty, label='best guess')
+plt.plot(observed_days, observed_lum, label='observed')
 
 plt.show()
