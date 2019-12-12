@@ -3,8 +3,6 @@ import os
 import fileinput
 import shutil
 
-owd = os.getcwd
-
 ### Set values ###
 
 Energy = 52
@@ -32,10 +30,10 @@ for i in permutations:
     original = open('original_parameters','r')
     os.chdir('output')
     os.mkdir(str(permutations.index(i)))
-    #shutil.copy('original_parameters', 'output/' + str(permutations.index(i)))
 
     ### changes directorty into the index number directory and opens the parameter file to edit
     os.chdir(str(permutations.index(i)))
+    os.mkdir('Data')
     parameters_file = open('parameters', 'w+')
 
     ### Edits line for that grid parameter
@@ -52,7 +50,7 @@ for i in permutations:
             parameters_file.write(newline)
             parameters_file.write('\n')
         elif line_num == 53:
-            newline = 'Ni_boundary_mass = ' + str( format( excised + (total_mass - excised)*i[2] ) )
+            newline = 'Ni_boundary_mass = ' + str( format( (excised + (total_mass - excised)*i[2]), '.6e' ) )
             parameters_file.write(newline)
             parameters_file.write('\n')
         else:
