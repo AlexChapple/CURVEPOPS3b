@@ -6,7 +6,7 @@ best_day = []
 best_lumonisty = []
 observed = np.loadtxt('calibrated.txt')
 observed_days = observed[:,0]
-observed_lum = observed[:, 1]
+observed_lum = observed[:,1]
 
 for i in range(0,244):
 
@@ -18,19 +18,18 @@ for i in range(0,244):
     days = [i / (24 * 60 * 60) for i in seconds]
     log_luminosity = [np.log10(i) for i in luminosity]
 
+
+    observed_lum = np.interp(days, observed_days, observed_lum)
+
     ### Chi-squared analysis
     chi_squared = 0
 
     for i in observed_days:
 
-        index = closest(days, i)
-        
+        index = observed_days.index(i)
+
         x = (log_luminosity[index] - observed_lum[index])**2 / observed_lum[index]
-
         chi_squared += x
-            
-
-    print(chi_squared)
 
     if chi_squared < best_chi_squared:
         best_chi_squared = chi_squared
