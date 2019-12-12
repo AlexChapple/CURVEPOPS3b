@@ -8,12 +8,6 @@ observed = np.loadtxt('calibrated.txt')
 observed_days = observed[:,0]
 observed_lum = observed[:, 1]
 
-def closest(lst, K):
-
-    lst = np.array(lst)
-    idx = (np.abs(lst - K)).argmin()
-    return idx
-
 for i in range(0,244):
 
     data = np.loadtxt('output/' + str(i) + '/data/lum_observed.dat')
