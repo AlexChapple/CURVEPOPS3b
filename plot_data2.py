@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 best_chi_squared = 100
 best_day = []
 best_lumonisty = []
+directory = 0
 
 ### Observed data
 observed = np.loadtxt('calibrated.txt')
@@ -47,12 +48,17 @@ for i in range(0,244):
         best_chi_squared = chi_squared
         best_day = observed_days
         best_lumonisty = log_luminosity2
+        directory = i
 
 print(best_chi_squared)
+print(directory)
     
 ### Plotting
 plt.plot(observed_days, best_lumonisty, label='best guess')
 plt.plot(observed_days, observed_lum, label='observed')
+plt.xlabel('Day since explosion')
+plt.ylabel('log L')
+plt.title(best_chi_squared)
 plt.legend()
 
 plt.show()
