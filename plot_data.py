@@ -6,7 +6,13 @@ best_day = []
 best_lumonisty = []
 observed = np.loadtxt('calibrated.txt')
 observed_days = observed[:,0]
-observed_lum = observed[:,1]
+observed_lum = observed[:, 1]
+
+def closest(lst, K):
+
+    lst = np.array(lst)
+    idx = (np.abs(lst - K)).argmin()
+    return idx
 
 for i in range(0,244):
 
@@ -23,13 +29,12 @@ for i in range(0,244):
 
     for i in observed_days:
 
-        if i in days:
+        index = closest(days, i)
+        
+        x = (log_luminosity[index] - observed_lum[index])**2 / observed_lum[index]
 
-            index = observed_days.index(i)
-
-            x = (log_luminosity[index] - observed_lum[index])**2 / observed_lum[index]
-
-            chi_squared += x
+        chi_squared += x
+            
 
     print(chi_squared)
 
