@@ -10,11 +10,11 @@ Nickel_mass = -0.75
 total_mass = 15.541415935387822955
 excised = 11.83
 
-# range = [-0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3]
-# alpha_range = [0.1, 0.3, 0.5, 0.7, 0.9]
+range = [-0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3]
+alpha_range = [0.1, 0.3, 0.5, 0.7, 0.9]
 
-range = [-0.3, 0.3]
-alpha_range = [0.1, 0.9]
+# range = [-0.3, 0.3]
+# alpha_range = [0.1, 0.9]
 
 permutations = []
 
@@ -33,9 +33,7 @@ for i in permutations:
 
     ### changes directorty into the index number directory and opens the parameter file to edit
     os.chdir(str(permutations.index(i)))
-    os.mkdir('Data')
-
-    os.symlink('/nesi/nobackup/')
+    os.mkdir('data')
 
     parameters_file = open('parameters', 'w+')
 
