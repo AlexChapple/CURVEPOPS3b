@@ -1,5 +1,3 @@
-### This file fits the mahuika data to the 
-
 import numpy as np 
 import matplotlib.pyplot as plt 
 

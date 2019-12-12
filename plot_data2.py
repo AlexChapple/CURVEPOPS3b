@@ -1,3 +1,5 @@
+### This file fits the mahuika data to the observed data
+
 import numpy as np 
 import matplotlib.pyplot as plt 
 
@@ -30,17 +32,17 @@ for i in range(0,244):
     log_luminosity = np.array([np.log10(i) for i in luminosity])
 
     ### interpolate data
-    # observed_lum2 = np.interp(days, observed_days, observed_lum)
     log_luminosity2 = np.interp(observed_days, days, log_luminosity)
 
     ### Chi-squared analysis
     chi_squared = 0
 
-    for i in range(len(observed_days)): # days
+    for i in range(len(observed_days)): 
 
         dchi = (log_luminosity2[i] - observed_lum[i])** 2 / observed_lum[i]
         chi_squared += dchi
 
+    ### Compares chi-squared value
     if chi_squared < best_chi_squared:
         best_chi_squared = chi_squared
         best_day = observed_days
@@ -48,6 +50,7 @@ for i in range(0,244):
 
 print(best_chi_squared)
     
+### Plotting
 plt.plot(observed_days, best_lumonisty, label='best guess')
 plt.plot(observed_days, observed_lum, label='observed')
 plt.legend()
