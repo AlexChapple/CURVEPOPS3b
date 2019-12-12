@@ -9,7 +9,7 @@ observed_lum = observed[:,1]
 
 for i in range(0,244):
 
-    data = open('output/' + str(i) + '/data/lum_observed.dat')
+    data = np.loadtxt('output/' + str(i) + '/data/lum_observed.dat')
 
     seconds = data[:,0]
     luminosity = data[:,1]
