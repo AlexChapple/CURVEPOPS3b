@@ -1,7 +1,7 @@
 import numpy as np 
 import matplotlib.pyplot as plt 
 
-best_chi_squared = 1000
+best_chi_squared = 10**12
 best_day = []
 best_lumonisty = []
 observed = np.loadtxt('calibrated.txt')
