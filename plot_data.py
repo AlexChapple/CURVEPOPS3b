@@ -5,6 +5,7 @@ best_chi_squared = 1000
 best_day = []
 best_lumonisty = []
 observed = np.loadtxt('calibrated.txt')
+observed_days = observed[:,0]
 observed_lum = observed[:,1]
 
 for i in range(0,244):
@@ -20,7 +21,7 @@ for i in range(0,244):
     ### Chi-squared analysis
     chi_squared = 0
 
-    for i in observed[:,0]:
+    for i in observed_days:
 
         if i in days:
 
