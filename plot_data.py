@@ -1,12 +1,10 @@
 ### This file fits the mahuika data to the observed data
-
-
 import numpy as np 
 import matplotlib.pyplot as plt
 import os
 
 ### Best approximate variables
-best_chi_squared = 100
+best_chi_squared = 10
 best_day = []
 best_lumonisty = []
 directory = 0
@@ -18,7 +16,7 @@ observed_lum = observed[:,1]
 
 ### Finding best fit
 
-for i in range(0,244):
+for i in range(0,728):
 
     ### Data from mahuika for each model
     data = np.loadtxt('output/' + str(i) + '/data/lum_observed.dat')

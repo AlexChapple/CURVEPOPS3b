@@ -1,3 +1,5 @@
+### Needs updating
+
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -13,9 +15,9 @@ observed_days = observed[:, 0]
 observed_lum = observed[:, 1]
 
 ### Grid Range
-E_range = [-0.4, -0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3, 0.4]
-NiM_range = [-0.4, -0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3, 0.4]
-alpha_range = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
+E_range = [-0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3]
+NiM_range = [-0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3]
+alpha_range = [0.1, 0.3, 0.5, 0.7, 0.9]
 
 ### Finds chi-squared value for the directory with index i
 def findChiValue(i):
@@ -45,7 +47,6 @@ def findChiValue(i):
         dchi = (log_luminosity2[i] - observed_lum[i])** 2 / observed_lum[i]
         chi_squared += dchi
 
-    print(chi_squared)
     return chi_squared
 
 ### Creates all permutations possible of Energy, Nickel Mass, and Nickel Boundary Mass,
@@ -126,11 +127,10 @@ def contourf_E_NiM():
 
     ### Creates the plot
     plt.figure(1)                   
-    plt.contourf(Energy_values, Nickel_mass, chi_squared_mesh, 30, cmap='RdGy')
+    plt.contourf(Energy_values, Nickel_mass, chi_squared_mesh, 10, cmap='RdGy')
     plt.xlabel('Energy (log10)')
     plt.ylabel('Nickel Mass')
     plt.colorbar()
-    plt.savefig('/nesi/nobackup/uoa00094/CURVEPOPS3b/2017ein/figure1.png')
     print('first plot created')
 
 ### Plots Energy and Nickel boundary mass contour plot
@@ -189,11 +189,10 @@ def contourf_E_NiBM():
     Nickel_boundary_mass = [excised + (total_mass - excised)*i for i in Nickel_boundary_mass]
 
     plt.figure(2)                   
-    plt.contourf(Energy_values, Nickel_boundary_mass, chi_squared_mesh, 30, cmap='RdGy')
+    plt.contourf(Energy_values, Nickel_boundary_mass, chi_squared_mesh, 10, cmap='RdGy')
     plt.xlabel('Energy (log10)')
     plt.ylabel('Nickel Boundary Mass')
     plt.colorbar()
-    plt.savefig('/nesi/nobackup/uoa00094/CURVEPOPS3b/2017ein/figure2.png')
     print('second plot created')
 
 ### Plots Nickel mass and Nickel boundary mass contour plot
@@ -255,14 +254,14 @@ def contourf_NiM_NiBM():
     Nickel_boundary_mass = [excised + (total_mass - excised)*i for i in Nickel_boundary_mass]
 
     plt.figure(3)                   
-    plt.contourf(NiM_values, Nickel_boundary_mass, chi_squared_mesh, 30, cmap='RdGy')
+    plt.contourf(NiM_values, Nickel_boundary_mass, chi_squared_mesh, 7, cmap='RdGy')
     plt.xlabel('Nickel mass')
     plt.ylabel('Nickel Boundary Mass')
     plt.colorbar()
-    plt.savefig('/nesi/nobackup/uoa00094/CURVEPOPS3b/2017ein/figure3.png')
     print('third plot created')
 
 contourf_NiM_NiBM()
 contourf_E_NiM()
 contourf_E_NiBM()
 
+plt.show()
