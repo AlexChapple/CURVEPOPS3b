@@ -12,7 +12,7 @@ best_lumonisty = []
 directory = 0
 
 ### Observed data
-observed = np.loadtxt('calibrated.txt')
+observed = np.loadtxt('2017ein_observed.txt')
 observed_days = observed[:,0] 
 observed_lum = observed[:,1]
 
