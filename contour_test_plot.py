@@ -45,7 +45,6 @@ def findChiValue(i):
         dchi = (log_luminosity2[i] - observed_lum[i])** 2 / observed_lum[i]
         chi_squared += dchi
 
-    print(chi_squared)
     return chi_squared
 
 ### Creates all permutations possible of Energy, Nickel Mass, and Nickel Boundary Mass,
@@ -313,6 +312,8 @@ def contourf_NiM_NiBM():
     plt.savefig('/nesi/nobackup/uoa00094/CURVEPOPS3b/2017ein/figure3.png')
     print('third plot created')
 
+
+### Repeated values is an issue, needs to be reduced etc
 def chi_squared_plots():
 
     ### Extracts data from all permutations
@@ -339,7 +340,7 @@ def chi_squared_plots():
     plt.ylabel('chi-squared')
     plt.savefig('/nesi/nobackup/uoa00094/CURVEPOPS3b/2017ein/chi2.png')
 
-    plt.figure(5)
+    plt.figure(6)
     plt.plot(NiBM_list, chi_squared_list)
     plt.xlabel('Nickel boundary mass')
     plt.ylabel('chi-squared')
@@ -349,5 +350,5 @@ def chi_squared_plots():
 contourf_NiM_NiBM()
 contourf_E_NiM()
 contourf_E_NiBM()
-chi_squared_plots()
+#chi_squared_plots()
 

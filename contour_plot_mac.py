@@ -127,7 +127,7 @@ def contourf_E_NiM():
 
     ### Creates the plot
     plt.figure(1)                   
-    plt.contourf(Energy_values, Nickel_mass, chi_squared_mesh, 10, cmap='RdGy')
+    plt.contourf(Energy_values, Nickel_mass, chi_squared_mesh, 30, cmap='RdGy')
     plt.xlabel('Energy (log10)')
     plt.ylabel('Nickel Mass')
     plt.colorbar()
@@ -189,7 +189,7 @@ def contourf_E_NiBM():
     Nickel_boundary_mass = [excised + (total_mass - excised)*i for i in Nickel_boundary_mass]
 
     plt.figure(2)                   
-    plt.contourf(Energy_values, Nickel_boundary_mass, chi_squared_mesh, 10, cmap='RdGy')
+    plt.contourf(Energy_values, Nickel_boundary_mass, chi_squared_mesh, 30, cmap='RdGy')
     plt.xlabel('Energy (log10)')
     plt.ylabel('Nickel Boundary Mass')
     plt.colorbar()
@@ -254,13 +254,14 @@ def contourf_NiM_NiBM():
     Nickel_boundary_mass = [excised + (total_mass - excised)*i for i in Nickel_boundary_mass]
 
     plt.figure(3)                   
-    plt.contourf(NiM_values, Nickel_boundary_mass, chi_squared_mesh, 7, cmap='RdGy')
+    plt.contourf(NiM_values, Nickel_boundary_mass, chi_squared_mesh, 30, cmap='RdGy')
     plt.xlabel('Nickel mass')
     plt.ylabel('Nickel Boundary Mass')
     plt.colorbar()
     print('third plot created')
 
-def chi_squared_plots1():
+### Repeated values is an issue, needs to be reduced etc
+def chi_squared_plots():
 
     ### Extracts data from all permutations
     all_values = create_all_permutations()
@@ -270,58 +271,28 @@ def chi_squared_plots1():
     chi_squared_list = [i[3] for i in all_values]
 
     ### Adjusts axis to actual value 
-    E_list = [10 ** (Energy_center + i) for i in E_list]
-    NiM_list = [10 ** (Nickel_mass_center + i) for i in NiM_list]
-    NiBM_list = [excised + (total_mass - excised) * i for i in NiBM_list]
+    E_list2 = [10 ** (Energy_center + i) for i in E_list]
+    NiM_list2 = [10 ** (Nickel_mass_center + i) for i in NiM_list]
+    NiBM_list2 = [excised + (total_mass - excised) * i for i in NiBM_list]
     
     plt.figure(4)
-    plt.plot(E_list, chi_squared_list)
+    plt.plot(E_list2, chi_squared_list)
     plt.xlabel('Energy')
     plt.ylabel('chi-squared')
 
-def chi_squared_plots2():
-
-    ### Extracts data from all permutations
-    all_values = create_all_permutations()
-    E_list = [i[0] for i in all_values]
-    NiM_list = [i[1] for i in all_values]
-    NiBM_list = [i[2] for i in all_values]
-    chi_squared_list = [i[3] for i in all_values]
-
-    ### Adjusts axis to actual value 
-    E_list = [10 ** (Energy_center + i) for i in E_list]
-    NiM_list = [10 ** (Nickel_mass_center + i) for i in NiM_list]
-    NiBM_list = [excised + (total_mass - excised) * i for i in NiBM_list]
-
     plt.figure(5)
-    plt.plot(NiM_list, chi_squared_list)
+    plt.plot(NiM_list2, chi_squared_list)
     plt.xlabel('Nickel mass')
     plt.ylabel('chi-squared')
 
-def chi_squared_plots3():
-
-    ### Extracts data from all permutations
-    all_values = create_all_permutations()
-    E_list = [i[0] for i in all_values]
-    NiM_list = [i[1] for i in all_values]
-    NiBM_list = [i[2] for i in all_values]
-    chi_squared_list = [i[3] for i in all_values]
-
-    ### Adjusts axis to actual value 
-    E_list = [10 ** (Energy_center + i) for i in E_list]
-    NiM_list = [10 ** (Nickel_mass_center + i) for i in NiM_list]
-    NiBM_list = [excised + (total_mass - excised) * i for i in NiBM_list]
-
     plt.figure(6)
-    plt.plot(NiBM_list, chi_squared_list)
+    plt.plot(NiBM_list2, chi_squared_list)
     plt.xlabel('Nickel boundary mass')
-    plt.ylabel('chi-squared')
+    plt.ylabel('chi-squared')    
 
 contourf_NiM_NiBM()
 contourf_E_NiM()
 contourf_E_NiBM()
-chi_squared_plots1()
-chi_squared_plots2()
-chi_squared_plots3()
+#chi_squared_plots()
 
 plt.show()
