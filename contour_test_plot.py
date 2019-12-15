@@ -313,7 +313,7 @@ def contourf_NiM_NiBM():
     plt.savefig('/nesi/nobackup/uoa00094/CURVEPOPS3b/2017ein/figure3.png')
     print('third plot created')
 
-def chi_squared_plots():
+def chi_squared_plots1():
 
     ### Extracts data from all permutations
     all_values = create_all_permutations()
@@ -327,26 +327,54 @@ def chi_squared_plots():
     NiM_list = [10 ** (Nickel_mass_center + i) for i in NiM_list]
     NiBM_list = [excised + (total_mass - excised) * i for i in NiBM_list]
     
-    plt.clf()
     plt.plot(E_list, chi_squared_list)
     plt.xlabel('Energy')
     plt.ylabel('chi-squared')
     plt.savefig('/nesi/nobackup/uoa00094/CURVEPOPS3b/2017ein/chi1.png')
 
-    plt.clf()
+def chi_squared_plots2():
+
+    ### Extracts data from all permutations
+    all_values = create_all_permutations()
+    E_list = [i[0] for i in all_values]
+    NiM_list = [i[1] for i in all_values]
+    NiBM_list = [i[2] for i in all_values]
+    chi_squared_list = [i[3] for i in all_values]
+
+    ### Adjusts axis to actual value 
+    E_list = [10 ** (Energy_center + i) for i in E_list]
+    NiM_list = [10 ** (Nickel_mass_center + i) for i in NiM_list]
+    NiBM_list = [excised + (total_mass - excised) * i for i in NiBM_list]
+
     plt.plot(NiM_list, chi_squared_list)
     plt.xlabel('Nickel mass')
     plt.ylabel('chi-squared')
     plt.savefig('/nesi/nobackup/uoa00094/CURVEPOPS3b/2017ein/chi2.png')
 
-    plt.clf()
+def chi_squared_plots3():
+
+    ### Extracts data from all permutations
+    all_values = create_all_permutations()
+    E_list = [i[0] for i in all_values]
+    NiM_list = [i[1] for i in all_values]
+    NiBM_list = [i[2] for i in all_values]
+    chi_squared_list = [i[3] for i in all_values]
+
+    ### Adjusts axis to actual value 
+    E_list = [10 ** (Energy_center + i) for i in E_list]
+    NiM_list = [10 ** (Nickel_mass_center + i) for i in NiM_list]
+    NiBM_list = [excised + (total_mass - excised) * i for i in NiBM_list]
+
     plt.plot(NiBM_list, chi_squared_list)
     plt.xlabel('Nickel boundary mass')
     plt.ylabel('chi-squared')
     plt.savefig('/nesi/nobackup/uoa00094/CURVEPOPS3b/2017ein/chi3.png')
 
+
 contourf_NiM_NiBM()
 contourf_E_NiM()
 contourf_E_NiBM()
-chi_squared_plots()
+chi_squared_plots1()
+chi_squared_plots2()
+chi_squared_plots3()
 
