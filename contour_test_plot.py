@@ -72,14 +72,14 @@ def contourf_E_NiM():
     all_values = create_all_permutations()
 
     lowest_chi = 1
-    lowest_alpha = 0
+    optimal_alpha = 0
     for i in all_values:
         if i[3] < lowest_chi:
             lowest_chi = i[3]
-            lowest_alpha = i[2]
+            optimal_alpha = i[2]
 
     all_values = np.array(all_values)
-    all_values = all_values[all_values[:,2] != lowest_alpha]
+    all_values = all_values[all_values[:,2] == optimal_alpha]
 
     # all_values = create_all_permutations()
     # reduced = create_all_permutations()
@@ -174,7 +174,7 @@ def contourf_E_NiBM():
             optimal_NiM = i[1]
 
     all_values = np.array(all_values)
-    all_values = all_values[all_values[:,1] != optimal_NiM]
+    all_values = all_values[all_values[:,1] == optimal_NiM]
 
     # all_values = create_all_permutations()
     # reduced = create_all_permutations()
@@ -292,7 +292,7 @@ def contourf_NiM_NiBM():
             optimal_Energy = i[0]
 
     all_values = np.array(all_values)
-    all_values = all_values[all_values[:,0] != optimal_Energy]
+    all_values = all_values[all_values[:,0] == optimal_Energy]
 
     NiM_values = np.array([i[1] for i in all_values])
     Nickel_boundary_mass = np.array([i[2] for i in all_values])
@@ -363,6 +363,8 @@ def chi_squared_plots():
     E_list = [10 ** (Energy_center + i) for i in E_list]
     NiM_list = [10 ** (Nickel_mass_center + i) for i in NiM_list]
     NiBM_list = [excised + (total_mass - excised) * i for i in NiBM_list]
+
+
     
     plt.figure(4)
     plt.plot(E_list, chi_squared_list)
