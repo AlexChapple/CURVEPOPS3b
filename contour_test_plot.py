@@ -165,30 +165,42 @@ def contourf_E_NiM():
 def contourf_E_NiBM():
 
     all_values = create_all_permutations()
-    reduced = create_all_permutations()
-    reduced2 = []
-               
-    ### reduces all_values to only the lowest chi-squared value
+
+    lowest_chi = 1
+    optimal_NiM = 0
     for i in all_values:
+        if i[3] < lowest_chi:
+            lowest_chi = i[3]
+            optimal_NiM = i[1]
 
-        for j in reduced:
+    all_values = np.array(all_values)
+    all_values = all_values[all_values[:,1] != optimal_NiM]
 
-            if i[0] == j[0] and i[2] == j[2]:
+    # all_values = create_all_permutations()
+    # reduced = create_all_permutations()
+    # reduced2 = []
+               
+    # ### reduces all_values to only the lowest chi-squared value
+    # for i in all_values:
 
-                if i[3] < j[3]:
+    #     for j in reduced:
 
-                    reduced[reduced.index(j)] = i
+    #         if i[0] == j[0] and i[2] == j[2]:
 
-    ### Extracts the unique values out of temp_list 
-    for i in reduced:
+    #             if i[3] < j[3]:
 
-        if i in reduced2:
-            pass
-        else:
-            reduced2.append(i)
+    #                 reduced[reduced.index(j)] = i
 
-    Energy_values = np.array([i[0] for i in reduced2])
-    Nickel_boundary_mass = np.array([i[2] for i in reduced2])
+    # ### Extracts the unique values out of temp_list 
+    # for i in reduced:
+
+    #     if i in reduced2:
+    #         pass
+    #     else:
+    #         reduced2.append(i)
+
+    Energy_values = np.array([i[0] for i in all_values])
+    Nickel_boundary_mass = np.array([i[2] for i in all_values])
 
     ### Creates mesh grid for Energy and Nickel mass
     Energy_values, Nickel_boundary_mass = np.meshgrid(Energy_values, Nickel_boundary_mass)
@@ -206,7 +218,7 @@ def contourf_E_NiBM():
             x = Energy_values[i][j]
             y = Nickel_boundary_mass[i][j]
 
-            for k in reduced2:
+            for k in all_values:
 
                 if k[0] == x and k[2] == y:
 
@@ -244,34 +256,46 @@ def contourf_E_NiBM():
 ### Plots Nickel mass and Nickel boundary mass contour plot
 def contourf_NiM_NiBM():
 
-    all_values = create_all_permutations()
-    reduced = create_all_permutations()
-    reduced2 = []
+    # all_values = create_all_permutations()
+    # reduced = create_all_permutations()
+    # reduced2 = []
                
-    ### reduces all_values to only the lowest chi-squared value
+    # ### reduces all_values to only the lowest chi-squared value
+    # for i in all_values:
+
+    #     for j in reduced:
+
+    #         if i[1] == j[1] and i[2] == j[2]:
+
+    #             if i[3] < j[3]:
+
+    #                 reduced[reduced.index(j)] = i
+
+    # ### Extracts the unique values out of temp_list 
+    # for i in reduced:
+
+    #     if i in reduced2:
+
+    #         pass
+
+    #     else:
+
+    #         reduced2.append(i)
+
+    all_values = create_all_permutations()
+
+    lowest_chi = 1
+    optimal_Energy = 0
     for i in all_values:
+        if i[3] < lowest_chi:
+            lowest_chi = i[3]
+            optimal_Energy = i[0]
 
-        for j in reduced:
+    all_values = np.array(all_values)
+    all_values = all_values[all_values[:,0] != optimal_Energy]
 
-            if i[1] == j[1] and i[2] == j[2]:
-
-                if i[3] < j[3]:
-
-                    reduced[reduced.index(j)] = i
-
-    ### Extracts the unique values out of temp_list 
-    for i in reduced:
-
-        if i in reduced2:
-
-            pass
-
-        else:
-
-            reduced2.append(i)
-
-    NiM_values = np.array([i[1] for i in reduced2])
-    Nickel_boundary_mass = np.array([i[2] for i in reduced2])
+    NiM_values = np.array([i[1] for i in all_values])
+    Nickel_boundary_mass = np.array([i[2] for i in all_values])
 
     ### Creates mesh grid for Energy and Nickel mass
     NiM_values, Nickel_boundary_mass = np.meshgrid(NiM_values, Nickel_boundary_mass)
@@ -289,7 +313,7 @@ def contourf_NiM_NiBM():
             x = NiM_values[i][j]
             y = Nickel_boundary_mass[i][j]
 
-            for k in reduced2:
+            for k in all_values:
 
                 if k[1] == x and k[2] == y:
 
@@ -359,8 +383,8 @@ def chi_squared_plots():
     plt.savefig('/nesi/nobackup/uoa00094/CURVEPOPS3b/2017ein/chi3.png')
 
 
-#contourf_NiM_NiBM()
+contourf_NiM_NiBM()
 contourf_E_NiM()
-#contourf_E_NiBM()
+contourf_E_NiBM()
 #chi_squared_plots()
 
