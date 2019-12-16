@@ -13,18 +13,9 @@ observed_days = observed[:, 0]
 observed_lum = observed[:, 1]
 
 ### Grid Range
-E_range = [-0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3]
-NiM_range = [-0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3]
-alpha_range = [0.1, 0.3, 0.5, 0.7, 0.9]
-
-all_values = []
-
-### Creates all permutations possible of Energy, Nickel Mass, and Nickel Boundary Mass
-for i in E_range:
-    for j in NiM_range:
-        for k in alpha_range:
-            
-            all_values.append([i, j, k])
+E_range = [-0.4, -0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3, 0.4]
+NiM_range = [-0.4, -0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3, 0.4]
+alpha_range = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
 
 ### Finds chi-squared value for the directory with index i
 def findChiValue(i):
@@ -56,17 +47,30 @@ def findChiValue(i):
 
     return chi_squared
 
-### Finds chi-squared value for all permutations and appends it as the 4th element
-for i in range(len(all_values)):
+### Creates all permutations possible of Energy, Nickel Mass, and Nickel Boundary Mass,
+### with chi-squared value for all permutations appended as the 4th element
+def create_all_permutations():
 
-    x = findChiValue(i)
-    all_values[i].append(x)
+    all_values = []
 
+    for i in E_range:
+        for j in NiM_range:
+            for k in alpha_range:
+                
+                all_values.append([i, j, k])
+
+    for i in range(len(all_values)):
+
+        x = findChiValue(i)
+        all_values[i].append(x)
+    
+    return all_values
 
 ### Plots Energy and Nickel mass contour plot
 def contourf_E_NiM():
 
-    reduced = all_values
+    all_values = create_all_permutations()
+    reduced = create_all_permutations()
     reduced2 = []
                
     ### reduces all_values to only the lowest chi-squared value
@@ -80,7 +84,7 @@ def contourf_E_NiM():
 
                     reduced[reduced.index(j)] = i
 
-    ### Extracts the unique values out of temp_list 
+    ### Extracts the unique values out of reduced list 
     for i in reduced:
 
         if i in reduced2:
@@ -98,8 +102,10 @@ def contourf_E_NiM():
     rows = len(Energy_values)
     columns = len(Energy_values[0])
 
+    ### Creates empty mesh grid for the chi-squared value
     chi_squared_mesh = np.zeros((rows, columns))
 
+    ### Inputs the chi-squared values into the empty mesh grid 
     for i in range(rows):
 
         for j in range(columns):
@@ -117,17 +123,37 @@ def contourf_E_NiM():
     Energy_values = [10 ** (Energy_center + i) for i in Energy_values]
     Nickel_mass = [10 ** (i + Nickel_mass_center) for i in Nickel_mass]
 
+    ### Creates the plot
     plt.figure(1)                   
-    plt.contourf(Energy_values, Nickel_mass, chi_squared_mesh, 10, cmap='RdGy')
-    plt.xlabel('Energy (log10)')
+    plt.contourf(Energy_values, Nickel_mass, chi_squared_mesh, 30, cmap='RdGy')
+    plt.xlabel('Energy')
     plt.ylabel('Nickel Mass')
     plt.colorbar()
+
+    ### Adds cross to where lowest chi-squared value
+    best_value = [100, 0, 0]
+    for i in range(rows):
+        for j in range(columns):
+
+            if best_value[0] == 100:
+                best_value[0] = chi_squared_mesh[i][j]
+                best_value[1] = i
+                best_value[2] = j
+            else:
+                if chi_squared_mesh[i][j] < best_value[0]:
+                    best_value[0] = chi_squared_mesh[i][j]
+                    best_value[1] = i
+                    best_value[2] = j
+
+    plt.plot(Energy_values[best_value[1]][best_value[2]], Nickel_mass[best_value[1]][best_value[2]], 'X')
+    plt.savefig('/nesi/nobackup/uoa00094/CURVEPOPS3b/2017ein/figure1.png')
     print('first plot created')
 
 ### Plots Energy and Nickel boundary mass contour plot
 def contourf_E_NiBM():
 
-    reduced = all_values
+    all_values = create_all_permutations()
+    reduced = create_all_permutations()
     reduced2 = []
                
     ### reduces all_values to only the lowest chi-squared value
@@ -179,16 +205,35 @@ def contourf_E_NiBM():
     Nickel_boundary_mass = [excised + (total_mass - excised)*i for i in Nickel_boundary_mass]
 
     plt.figure(2)                   
-    plt.contourf(Energy_values, Nickel_boundary_mass, chi_squared_mesh, 10, cmap='RdGy')
-    plt.xlabel('Energy (log10)')
+    plt.contourf(Energy_values, Nickel_boundary_mass, chi_squared_mesh, 30, cmap='RdGy')
+    plt.xlabel('Energy')
     plt.ylabel('Nickel Boundary Mass')
     plt.colorbar()
+
+    ### Adds cross to where lowest chi-squared value
+    best_value = [100, 0, 0]
+    for i in range(rows):
+        for j in range(columns):
+
+            if best_value[0] == 100:
+                best_value[0] = chi_squared_mesh[i][j]
+                best_value[1] = i
+                best_value[2] = j
+            else:
+                if chi_squared_mesh[i][j] < best_value[0]:
+                    best_value[0] = chi_squared_mesh[i][j]
+                    best_value[1] = i
+                    best_value[2] = j
+
+    plt.plot(Energy_values[best_value[1]][best_value[2]], Nickel_boundary_mass[best_value[1]][best_value[2]], 'X')
+    plt.savefig('/nesi/nobackup/uoa00094/CURVEPOPS3b/2017ein/figure2.png')
     print('second plot created')
 
 ### Plots Nickel mass and Nickel boundary mass contour plot
 def contourf_NiM_NiBM():
 
-    reduced = all_values
+    all_values = create_all_permutations()
+    reduced = create_all_permutations()
     reduced2 = []
                
     ### reduces all_values to only the lowest chi-squared value
@@ -243,15 +288,67 @@ def contourf_NiM_NiBM():
     Nickel_boundary_mass = [excised + (total_mass - excised)*i for i in Nickel_boundary_mass]
 
     plt.figure(3)                   
-    plt.contourf(NiM_values, Nickel_boundary_mass, chi_squared_mesh, 7, cmap='RdGy')
+    plt.contourf(NiM_values, Nickel_boundary_mass, chi_squared_mesh, 30, cmap='RdGy')
     plt.xlabel('Nickel mass')
     plt.ylabel('Nickel Boundary Mass')
     plt.colorbar()
+
+    ### Adds cross to where lowest chi-squared value
+    best_value = [100, 0, 0]
+    for i in range(rows):
+        for j in range(columns):
+
+            if best_value[0] == 100:
+                best_value[0] = chi_squared_mesh[i][j]
+                best_value[1] = i
+                best_value[2] = j
+            else:
+                if chi_squared_mesh[i][j] < best_value[0]:
+                    best_value[0] = chi_squared_mesh[i][j]
+                    best_value[1] = i
+                    best_value[2] = j
+
+    plt.plot(NiM_values[best_value[1]][best_value[2]], Nickel_boundary_mass[best_value[1]][best_value[2]], 'X')
+    plt.savefig('/nesi/nobackup/uoa00094/CURVEPOPS3b/2017ein/figure3.png')
     print('third plot created')
+
+
+### Repeated values is an issue, needs to be reduced etc
+def chi_squared_plots():
+
+    ### Extracts data from all permutations
+    all_values = create_all_permutations()
+    E_list = [i[0] for i in all_values]
+    NiM_list = [i[1] for i in all_values]
+    NiBM_list = [i[2] for i in all_values]
+    chi_squared_list = [i[3] for i in all_values]
+
+    ### Adjusts axis to actual value 
+    E_list = [10 ** (Energy_center + i) for i in E_list]
+    NiM_list = [10 ** (Nickel_mass_center + i) for i in NiM_list]
+    NiBM_list = [excised + (total_mass - excised) * i for i in NiBM_list]
+    
+    plt.figure(4)
+    plt.plot(E_list, chi_squared_list)
+    plt.xlabel('Energy')
+    plt.ylabel('chi-squared')
+    plt.savefig('/nesi/nobackup/uoa00094/CURVEPOPS3b/2017ein/chi1.png')
+
+    plt.figure(5)
+    plt.plot(NiM_list, chi_squared_list)
+    plt.xlabel('Nickel mass')
+    plt.ylabel('chi-squared')
+    plt.savefig('/nesi/nobackup/uoa00094/CURVEPOPS3b/2017ein/chi2.png')
+
+    plt.figure(6)
+    plt.plot(NiBM_list, chi_squared_list)
+    plt.xlabel('Nickel boundary mass')
+    plt.ylabel('chi-squared')
+    plt.savefig('/nesi/nobackup/uoa00094/CURVEPOPS3b/2017ein/chi3.png')
+
 
 contourf_NiM_NiBM()
 contourf_E_NiM()
 contourf_E_NiBM()
-
-plt.show()
+#chi_squared_plots()
 

@@ -70,30 +70,42 @@ def create_all_permutations():
 def contourf_E_NiM():
 
     all_values = create_all_permutations()
-    reduced = create_all_permutations()
-    reduced2 = []
-               
-    ### reduces all_values to only the lowest chi-squared value
+
+    lowest_chi = 1
+    lowest_alpha = 0
     for i in all_values:
+        if i[3] < lowest_chi:
+            lowest_chi = i[3]
+            lowest_alpha = i[2]
 
-        for j in reduced:
+    all_values = np.array(all_values)
+    all_values = all_values[all_values[:,2] != lowest_alpha]
 
-            if i[:2] == j[:2]:
+    # all_values = create_all_permutations()
+    # reduced = create_all_permutations()
+    # reduced2 = []
+               
+    # ### reduces all_values to only the lowest chi-squared value
+    # for i in all_values:
 
-                if i[3] < j[3]:
+    #     for j in reduced:
 
-                    reduced[reduced.index(j)] = i
+    #         if i[:2] == j[:2]:
 
-    ### Extracts the unique values out of reduced list 
-    for i in reduced:
+    #             if i[3] < j[3]:
 
-        if i in reduced2:
-            pass
-        else:
-            reduced2.append(i)
+    #                 reduced[reduced.index(j)] = i
 
-    Energy_values = np.array([i[0] for i in reduced2])
-    Nickel_mass = np.array([i[1] for i in reduced2])
+    # ### Extracts the unique values out of reduced list 
+    # for i in reduced:
+
+    #     if i in reduced2:
+    #         pass
+    #     else:
+    #         reduced2.append(i)
+    ##################
+    Energy_values = np.array([i[0] for i in all_values])
+    Nickel_mass = np.array([i[1] for i in all_values])
 
     ### Creates mesh grid for Energy and Nickel mass
     Energy_values, Nickel_mass = np.meshgrid(Energy_values, Nickel_mass)
@@ -113,7 +125,7 @@ def contourf_E_NiM():
             x = Energy_values[i][j]
             y = Nickel_mass[i][j]
 
-            for k in reduced2:
+            for k in all_values:
 
                 if k[0] == x and k[1] == y:
 
@@ -347,8 +359,8 @@ def chi_squared_plots():
     plt.savefig('/nesi/nobackup/uoa00094/CURVEPOPS3b/2017ein/chi3.png')
 
 
-contourf_NiM_NiBM()
+#contourf_NiM_NiBM()
 contourf_E_NiM()
-contourf_E_NiBM()
+#contourf_E_NiBM()
 #chi_squared_plots()
 
