@@ -279,12 +279,12 @@ def contourf_NiM_NiBM():
     print('third plot created')
 
 
-### Plots the chi-squared plots for all parameters
+### Repeated values is an issue, needs to be reduced etc
 def chi_squared_plots():
 
     all_values = create_all_permutations()
 
-    lowest_chi = 1
+    lowest_chi = 100
     optimal_alpha = 0
     optimal_Energy = 0
     optimal_Nickel = 0
@@ -300,8 +300,8 @@ def chi_squared_plots():
     ### Energy plot
     all_values_E = all_values[all_values[:,2] == optimal_alpha]
     all_values_E = all_values_E[all_values_E[:,1] == optimal_Nickel]
-    Energy_list = all_values_E[0]
-    chi_squared_list = all_values_E[3]
+    Energy_list = all_values_E[:,0]
+    chi_squared_list = all_values_E[:,3]
 
     E_list = [10 ** (Energy_center + i) for i in Energy_list]
 
@@ -315,8 +315,8 @@ def chi_squared_plots():
     ### Nickel mass plot
     all_values_NiM = all_values[all_values[:,2] == optimal_alpha]
     all_values_NiM = all_values_NiM[all_values_NiM[:,0] == optimal_Energy]
-    NiM_list = all_values_NiM[0]
-    chi_squared_list = all_values_NiM[3]
+    NiM_list = all_values_NiM[:,1]
+    chi_squared_list = all_values_NiM[:,3]
 
     NiM_list = [10 ** (Nickel_mass_center + i) for i in NiM_list]
 
@@ -329,8 +329,8 @@ def chi_squared_plots():
     ### Nickel boundary mass plot
     all_values_NiBM = all_values[all_values[:,1] == optimal_Nickel]
     all_values_NiBM = all_values_NiBM[all_values_NiBM[:,0] == optimal_Energy]
-    NiBM_list = all_values_NiBM[0]
-    chi_squared_list = all_values_NiBM[3]
+    NiBM_list = all_values_NiBM[:,2]
+    chi_squared_list = all_values_NiBM[:,3]
 
     NiBM_list = [excised + (total_mass - excised) * i for i in NiBM_list]
 
