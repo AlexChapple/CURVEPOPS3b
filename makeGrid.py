@@ -2,24 +2,12 @@ import numpy as np
 import os
 import fileinput
 import shutil
-
-### Set values ###
-
-Energy = 52
-Nickel_mass = -0.75
-total_mass = 15.541415935387822955
-excised = 11.83
-
-range = [-0.4, -0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3, 0.4]
-alpha_range = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
-
-# range = [-0.3, 0.3] 
-# alpha_range = [0.1, 0.9]
+from settings import *
 
 permutations = []
 
-for i in range:
-    for j in range:
+for i in E_range:
+    for j in NiM_range:
         for k in alpha_range:
 
             permutations.append([i,j,k])
@@ -43,11 +31,11 @@ for i in permutations:
         line_num += 1
 
         if line_num == 19:
-            newline = 'final_energy = ' + str(format(10**(Energy + i[0]), '.6e'))
+            newline = 'final_energy = ' + str(format(10**(Energy_center + i[0]), '.6e'))
             parameters_file.write(newline)
             parameters_file.write('\n')
         elif line_num == 49:
-            newline = 'Ni_mass = ' + str(format(10**(Nickel_mass + i[1]), '.6e'))
+            newline = 'Ni_mass = ' + str(format(10**(Nickel_mass_center + i[1]), '.6e'))
             parameters_file.write(newline)
             parameters_file.write('\n')
         elif line_num == 50:

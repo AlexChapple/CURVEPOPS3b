@@ -1,23 +1,23 @@
 ### Most up to date full code, created for Nesi
-
+from settings import *
 import numpy as np
 import matplotlib.pyplot as plt
 
-### Set values ###
-Energy_center = 52
-Nickel_mass_center = -0.75
-total_mass = 15.541415935387822955
-excised = 11.83
+# ### Set values ###
+# Energy_center = 52
+# Nickel_mass_center = -0.75
+# total_mass = 15.541415935387822955
+# excised = 11.83
 
 ### Observed data
 observed = np.loadtxt('2017ein_observed.txt')
 observed_days = observed[:, 0]
 observed_lum = observed[:, 1]
 
-### Grid Range
-E_range = [-0.4, -0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3, 0.4]
-NiM_range = [-0.4, -0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3, 0.4]
-alpha_range = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
+# ### Grid Range
+# E_range = [-0.4, -0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3, 0.4]
+# NiM_range = [-0.4, -0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3, 0.4]
+# alpha_range = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
 
 ### Finds chi-squared value for the directory with index i
 def findChiValue(i):
