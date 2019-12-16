@@ -349,7 +349,6 @@ def contourf_NiM_NiBM():
     print('third plot created')
 
 
-### Repeated values is an issue, needs to be reduced etc
 def chi_squared_plots():
 
     all_values = create_all_permutations()
@@ -409,39 +408,6 @@ def chi_squared_plots():
     plt.xlabel('Nickel boundary mass')
     plt.ylabel('chi-squared')
     plt.savefig('/nesi/nobackup/uoa00094/CURVEPOPS3b/2017ein/chi3.png')
-
-    # ### Extracts data from all permutations
-    # all_values = create_all_permutations()
-    # E_list = [i[0] for i in all_values]
-    # NiM_list = [i[1] for i in all_values]
-    # NiBM_list = [i[2] for i in all_values]
-    # chi_squared_list = [i[3] for i in all_values]
-
-    # ### Adjusts axis to actual value 
-    # E_list = [10 ** (Energy_center + i) for i in E_list]
-    # NiM_list = [10 ** (Nickel_mass_center + i) for i in NiM_list]
-    # NiBM_list = [excised + (total_mass - excised) * i for i in NiBM_list]
-
-
-    
-    # plt.figure(4)
-    # plt.plot(E_list, chi_squared_list)
-    # plt.xlabel('Energy')
-    # plt.ylabel('chi-squared')
-    # plt.savefig('/nesi/nobackup/uoa00094/CURVEPOPS3b/2017ein/chi1.png')
-
-    # plt.figure(5)
-    # plt.plot(NiM_list, chi_squared_list)
-    # plt.xlabel('Nickel mass')
-    # plt.ylabel('chi-squared')
-    # plt.savefig('/nesi/nobackup/uoa00094/CURVEPOPS3b/2017ein/chi2.png')
-
-    # plt.figure(6)
-    # plt.plot(NiBM_list, chi_squared_list)
-    # plt.xlabel('Nickel boundary mass')
-    # plt.ylabel('chi-squared')
-    # plt.savefig('/nesi/nobackup/uoa00094/CURVEPOPS3b/2017ein/chi3.png')
-
 
 contourf_NiM_NiBM()
 contourf_E_NiM()
