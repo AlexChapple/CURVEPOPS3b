@@ -51,4 +51,4 @@ def plotter(points,grid_folder_path, vary):
     plt.ylabel('luminosity (log10)')
     plt.savefig(path + '/vary_{}'.format(vary))
 
-GridPlot2(path + '/output')
+GridPlot2(path + '/old_output2')
