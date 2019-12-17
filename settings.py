@@ -1,3 +1,6 @@
+### Path to folder
+path = '/nesi/nobackup/CURVEPOPS3b/2017ein'
+
 ### Set values ###
 Energy_center = 51.87506126
 Nickel_mass_center = -0.75

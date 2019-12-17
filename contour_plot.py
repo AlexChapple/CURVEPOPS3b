@@ -44,8 +44,7 @@ def findChiValue(i):
 
     for i in range(len(observed_days)): 
 
-        dchi = (log_luminosity2[i] - observed_lum[i])** 2 / observed_lum[i]
-        chi_squared += dchi
+        chi_squared += (log_luminosity2[i] - observed_lum[i])** 2 / observed_lum[i]
 
     return chi_squared
 
