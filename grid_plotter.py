@@ -16,7 +16,7 @@ def GridPlot2(grid_folder_path):
     varyAlpha = []
     varyNiM = []
     varyEnergy = []
-    i = 0
+    
     for file in os.listdir(grid_folder_path):
         label = BackTrans(int(file),E_range, NiM_range, alpha_range,[Energy_center,Nickel_mass_center])
         x = label.split(':')
@@ -27,7 +27,7 @@ def GridPlot2(grid_folder_path):
             varyNiM.append([file,label])
         if x[3] == str(Nickel_mass_center) and x[5] == '0.5':
             varyEnergy.append([file,label])
-        i += 1
+            
     plotter(varyAlpha,grid_folder_path, 'alpha')
     plotter(varyNiM,grid_folder_path, 'NiM')
     plotter(varyEnergy,grid_folder_path, 'Energy')
@@ -36,19 +36,19 @@ def plotter(points,grid_folder_path, vary):
     days = []
     files = [item[0] for item in points]
     labels = [item[1] for item in points]
-    for i in range(len(files)):
+    for j in range(len(files)):
 
-        data = np.loadtxt(grid_folder_path + "/" + files[i] + "/data/lum_observed.dat")
+        data = np.loadtxt(grid_folder_path + "/" + files[j] + "/data/lum_observed.dat")
         if days == []:
             seconds = data[:,0]
             days = [i / (24 * 60 * 60) for i in seconds]
 
         luminosity = data[:,1]
         log_luminosity = [np.log10(i) for i in luminosity]
-        plt.plot(days, log_luminosity, label=labels[i])
+        plt.plot(days, log_luminosity, label=labels[j])
     plt.legend()
     plt.xlabel('days since explosion')
     plt.ylabel('luminosity (log10)')
     plt.savefig(path + '/vary_{}'.format(vary))
 
-GridPlot2(path + '/old_output2')
+GridPlot2(path + '/output')
