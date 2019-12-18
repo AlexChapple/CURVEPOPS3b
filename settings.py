@@ -1,6 +1,6 @@
 ### Path to folder
-path = '/nesi/nobackup/uoa00094/CURVEPOPS3b/2017ein'
-# path = '/Users/alexchapple/Uni/SummerProjectShared/CURVEPOPS3b'
+# path = '/nesi/nobackup/uoa00094/CURVEPOPS3b/2017ein'
+path = '/Users/alexchapple/Uni/SummerProjectShared/CURVEPOPS3b'
 
 # ### Set values ###
 # Energy_center = 52 # 51.87506126
