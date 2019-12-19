@@ -43,7 +43,7 @@ def E_plotter():
         plt.xlabel('Day since explosion')
         plt.ylabel('Luminosity (log10)')
         plt.legend()
-        plt.savefig(path + '/Energy.png')
+        plt.savefig(path + '/Energy.png', dpi=300)
 
 def NiM_plotter():
 
@@ -74,7 +74,7 @@ def NiM_plotter():
         plt.xlabel('Day since explosion')
         plt.ylabel('Luminosity (log10)')
         plt.legend()
-        plt.savefig(path + '/NiM.png')
+        plt.savefig(path + '/NiM.png', dpi=300)
 
 
 def NiBM_plotter():
@@ -106,7 +106,7 @@ def NiBM_plotter():
         plt.xlabel('Day since explosion')
         plt.ylabel('Luminosity (log10)')
         plt.legend()
-        plt.savefig(path + '/alpha.png')
+        plt.savefig(path + '/alpha.png', dpi=300)
 
 E_plotter()
 NiM_plotter()
